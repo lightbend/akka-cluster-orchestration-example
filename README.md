@@ -27,6 +27,15 @@ enableServiceDiscovery := true
 endpoints := endpoints.value :+ HttpEndpoint("http", 0, HttpIngress(Vector(80, 443), Vector.empty, Vector("/cluster-example")))
 ```
 
+3. Use the http endpoint declared above, see below from `Main.scala`:
+
+```scala
+val host = SocketBinding.bindHost("http", default = "localhost")
+val port = SocketBinding.bindPort("http", default = 8080)
+
+Http().bindAndHandle(route, host, port)
+```
+
 ### Deployment
 
 Prerequisites:
