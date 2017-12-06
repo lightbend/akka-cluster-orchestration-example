@@ -12,7 +12,7 @@ to easily and safely deploy to [Kubernetes](https://kubernetes.io/) with minimal
 1. Add the following to `project/plugins.sbt`:
 
 ```scala
-addSbtPlugin("com.lightbend.rp" % "sbt-reactive-app" % "0.3.2")
+addSbtPlugin("com.lightbend.rp" % "sbt-reactive-app" % "0.3.3")
 ```
 
 2. Enable the modules and declare the HTTP endpoint in `build.sbt`:
