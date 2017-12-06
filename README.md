@@ -64,13 +64,13 @@ eval $(minikube docker-env)
 minikube addons enable ingress
 ```
 
-2) Build project
+3) Build project
 
 ```bash
 sbt docker:publishLocal
 ```
 
-3) Deploy project
+4) Deploy project
 
 ```bash
 rp generate-kubernetes-deployment akka-cluster-tooling-example/akka-cluster-tooling-example:0.1.0 \
@@ -78,7 +78,7 @@ rp generate-kubernetes-deployment akka-cluster-tooling-example/akka-cluster-tool
   --pod-controller-replicas 3 | kubectl apply -f -
 ```
 
-4) View Results (Note: You'll get an SSL warning because the certificate is self-signed. This is okay.)
+5) View Results (Note: You'll get an SSL warning because the certificate is self-signed. This is okay.)
 
 ```bash
 kubectl get all
