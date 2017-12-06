@@ -43,12 +43,25 @@ Prerequisites:
 * [reactive-cli](https://s3-us-west-2.amazonaws.com/rp-tooling-temp-docs/deployment-setup.html#install-the-cli)
 * [Minikube](https://github.com/kubernetes/minikube#installation)
 
-1) Start minikube:
+1) Delete minikube:
+
+If you want to start with a fresh Minikube, use the following. This will delete your existing Minikube and all of its data.
+
+```bash
+minikube delete
+
+# optionally, remove everything
+rm -rf ~/.minikube
+```
+
+2) Start minikube
 
 ```bash
 minikube start
 
 eval $(minikube docker-env)
+
+minikube addons enable ingress
 ```
 
 2) Build project
@@ -68,7 +81,7 @@ rp generate-kubernetes-deployment akka-cluster-tooling-example/akka-cluster-tool
 4) View Results (Note: You'll get an SSL warning because the certificate is self-signed. This is okay.)
 
 ```bash
-kubectl get all --namespace akka-cluster-tooling-example
+kubectl get all
 
 echo "https://$(minikube ip)/cluster-example"
 ```
