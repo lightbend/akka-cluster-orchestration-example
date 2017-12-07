@@ -12,7 +12,7 @@ to easily and safely deploy to [Kubernetes](https://kubernetes.io/) with minimal
 1. Add the following to `project/plugins.sbt`:
 
 ```scala
-addSbtPlugin("com.lightbend.rp" % "sbt-reactive-app" % "0.3.3")
+addSbtPlugin("com.lightbend.rp" % "sbt-reactive-app" % "0.4.0")
 ```
 
 2. Enable the modules and declare the HTTP endpoint in `build.sbt`:
@@ -42,6 +42,8 @@ Prerequisites:
 
 * [reactive-cli](https://s3-us-west-2.amazonaws.com/rp-tooling-temp-docs/deployment-setup.html#install-the-cli)
 * [Minikube](https://github.com/kubernetes/minikube#installation)
+
+> **You'll need version 0.4.2 (or later) of the CLI.**
 
 1) Delete minikube:
 
