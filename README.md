@@ -5,37 +5,6 @@ This is a very simple [Akka Cluster](https://doc.akka.io/docs/akka/snapshot/clus
 can build a similar application and take advantage of the [Platform Tooling](https://s3-us-west-2.amazonaws.com/rp-tooling-temp-docs/home.html)
 to easily and safely deploy to [Kubernetes](https://kubernetes.io/) with minimal configuration required.
 
-### Project Setup
-
-> These steps have already been performed but they're included below for reference.
-
-1. Add the following to `project/plugins.sbt`:
-
-```scala
-addSbtPlugin("com.lightbend.rp" % "sbt-reactive-app" % "0.4.0")
-```
-
-2. Enable the modules and declare the HTTP endpoint in `build.sbt`:
-
-```scala
-enablePlugins(SbtReactiveAppPlugin)
-
-enableAkkaClusterBootstrap := Some(true)
-
-enableServiceDiscovery := true
-
-endpoints += HttpEndpoint("http", 0, HttpIngress(Vector(80, 443), Vector.empty, Vector("/cluster-example")))
-```
-
-3. Use the http endpoint declared above, see below from `Main.scala`:
-
-```scala
-val host = SocketBinding.bindHost("http", default = "localhost")
-val port = SocketBinding.bindPort("http", default = 8080)
-
-Http().bindAndHandle(route, host, port)
-```
-
 ### Deployment
 
 Prerequisites:
@@ -43,20 +12,11 @@ Prerequisites:
 * [reactive-cli](https://s3-us-west-2.amazonaws.com/rp-tooling-temp-docs/deployment-setup.html#install-the-cli)
 * [Minikube](https://github.com/kubernetes/minikube#installation)
 
-> **You'll need version 0.4.2 (or later) of the CLI.**
+> **You'll need version 0.5.1 (or later) of the CLI.**
 
-1) Delete minikube:
+> If you already have a Minikube and wish to start fresh, run `minikube delete` to remove your existing Minikube.
 
-If you want to start with a fresh Minikube, use the following. This will delete your existing Minikube and all of its data.
-
-```bash
-minikube delete
-
-# optionally, remove everything
-rm -rf ~/.minikube
-```
-
-2) Start minikube
+1) Start minikube
 
 ```bash
 minikube start
@@ -66,10 +26,16 @@ eval $(minikube docker-env)
 minikube addons enable ingress
 ```
 
-3) Build project
+2) Build project
 
 ```bash
 sbt docker:publishLocal
+```
+
+3) Inspect images
+
+```bash
+docker images
 ```
 
 4) Deploy project
@@ -80,10 +46,58 @@ rp generate-kubernetes-deployment akka-cluster-tooling-example/akka-cluster-tool
   --pod-controller-replicas 3 | kubectl apply -f -
 ```
 
-5) View Results (Note: You'll get an SSL warning because the certificate is self-signed. This is okay.)
+5) View Results (Note: `-k` is needed because the certificate is self-signed)
+
+This may take 30 seconds or so until all pods have been started and the cluster has formed. You should see a member
+listing.
 
 ```bash
 kubectl get all
-
-echo "https://$(minikube ip)/cluster-example"
 ```
+
+```
+NAME                                         DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
+deploy/akka-cluster-tooling-example-v0-1-0   3         3         3            3           1m
+
+NAME                                                DESIRED   CURRENT   READY     AGE
+rs/akka-cluster-tooling-example-v0-1-0-6d8b954c45   3         3         3         1m
+
+NAME                                         DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
+deploy/akka-cluster-tooling-example-v0-1-0   3         3         3            3           1m
+
+NAME                                                DESIRED   CURRENT   READY     AGE
+rs/akka-cluster-tooling-example-v0-1-0-6d8b954c45   3         3         3         1m
+
+NAME                                                      READY     STATUS    RESTARTS   AGE
+po/akka-cluster-tooling-example-v0-1-0-6d8b954c45-2jzbb   1/1       Running   0          1m
+po/akka-cluster-tooling-example-v0-1-0-6d8b954c45-vfkg6   1/1       Running   0          1m
+po/akka-cluster-tooling-example-v0-1-0-6d8b954c45-zq8wj   1/1       Running   0          1m
+
+NAME                               TYPE        CLUSTER-IP   EXTERNAL-IP   PORT(S)                         AGE
+svc/akka-cluster-tooling-example   ClusterIP   None         <none>        10000/TCP,10001/TCP,10002/TCP   1m
+svc/kubernetes                     ClusterIP   10.96.0.1    <none>        443/TCP                         3m
+```
+
+```bash
+curl -k "https://$(minikube ip)/cluster-example"
+```
+
+```
+Akka Cluster Members
+====================
+
+akka.tcp://my-system@172.17.0.8:10000
+akka.tcp://my-system@172.17.0.7:10000
+akka.tcp://my-system@172.17.0.6:10000
+```
+
+6) Remove project (Optional)
+
+If you wish to remove the resources, you can use `kubectl delete` as follows:
+
+```bash
+rp generate-kubernetes-deployment akka-cluster-tooling-example/akka-cluster-tooling-example:0.1.0 \
+  --ingress-annotation ingress.kubernetes.io/rewrite-target=/ \
+  --pod-controller-replicas 3 | kubectl delete -f -
+```
+
