@@ -14,4 +14,4 @@ libraryDependencies ++= Vector(
   "com.typesafe.akka" %% "akka-http"    % "10.0.11",
   "com.typesafe.akka" %% "akka-stream"  % "2.5.7")
 
-endpoints += HttpEndpoint("http", 0, HttpIngress(Vector(80, 443), Vector.empty, Vector("/cluster-example")))
+endpoints += HttpEndpoint("http", HttpIngress(Vector(80, 443), Vector.empty, Vector("/cluster-example")))
