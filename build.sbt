@@ -4,9 +4,7 @@ version := "0.1.0"
 
 enablePlugins(SbtReactiveAppPlugin)
 
-enableAkkaClusterBootstrap := Some(true)
-
-enableServiceDiscovery := true
+enableAkkaClusterBootstrap := true
 
 libraryDependencies ++= Vector(
   "com.typesafe.akka" %% "akka-actor"   % "2.5.7",
