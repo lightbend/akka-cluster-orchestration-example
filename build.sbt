@@ -13,3 +13,7 @@ libraryDependencies ++= Vector(
   "com.typesafe.akka" %% "akka-stream"  % "2.5.7")
 
 endpoints += HttpEndpoint("http", HttpIngress(Vector(80, 443), Vector.empty, Vector("/cluster-example")))
+
+mainClass in Compile := Some("com.lightbend.example.com.lightbend.rp.example.akkacluster.App")
+
+applications += "my-job" -> Vector("bin/job")

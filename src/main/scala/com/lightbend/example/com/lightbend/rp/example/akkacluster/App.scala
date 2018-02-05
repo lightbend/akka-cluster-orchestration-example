@@ -11,7 +11,7 @@ import scala.concurrent.duration._
 
 import SimpleClusterListener._
 
-object Main {
+object App {
   def main(args: Array[String]) {
     implicit val system = ActorSystem("my-system")
     implicit val materializer = ActorMaterializer()

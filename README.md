@@ -41,7 +41,8 @@ docker images
 4) Deploy project
 
 ```bash
-rp generate-kubernetes-deployment akka-cluster-tooling-example/akka-cluster-tooling-example:0.1.0 \
+rp generate-kubernetes-resources akka-cluster-tooling-example/akka-cluster-tooling-example:0.1.0 \
+  --generate-all \
   --ingress-annotation ingress.kubernetes.io/rewrite-target=/ \
   --pod-controller-replicas 3 | kubectl apply -f -
 ```
@@ -91,7 +92,31 @@ akka.tcp://my-system@172.17.0.7:10000
 akka.tcp://my-system@172.17.0.6:10000
 ```
 
-6) Remove project (Optional)
+6) Run the job
+
+This application has a job in it that joins the existing cluster, prints a message, and then exits.
+
+```bash
+rp generate-kubernetes-resources akka-cluster-tooling-example/akka-cluster-tooling-example:0.1.0 \
+  --application my-job \
+  --join-existing-akka-cluster \
+  --generate-pod-controllers \
+  --pod-controller-type job
+```
+
+You can then inspect the jobs output using:
+
+```bash
+kubectl logs jobs/akka-cluster-tooling-example-v0-1-0
+```
+
+And lastly, remove the job, thus deleting logs:
+
+```bash
+kubectl delete jobs/akka-cluster-tooling-example-v0-1-0
+```
+
+7) Remove project (Optional)
 
 If you wish to remove the resources, you can use `kubectl delete` as follows:
 
