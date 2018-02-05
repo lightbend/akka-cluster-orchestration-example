@@ -12,7 +12,7 @@ Prerequisites:
 * [reactive-cli](https://s3-us-west-2.amazonaws.com/rp-tooling-temp-docs/deployment-setup.html#install-the-cli)
 * [Minikube](https://github.com/kubernetes/minikube#installation)
 
-> **You'll need version 0.5.1 (or later) of the CLI.**
+> **You'll need version 0.8.0 (or later) of the CLI.**
 
 > If you already have a Minikube and wish to start fresh, run `minikube delete` to remove your existing Minikube.
 
