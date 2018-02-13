@@ -17,3 +17,10 @@ endpoints += HttpEndpoint("http", HttpIngress(Vector(80, 443), Vector.empty, Vec
 mainClass in Compile := Some("com.lightbend.example.com.lightbend.rp.example.akkacluster.App")
 
 applications += "my-job" -> Vector("bin/job")
+
+deployMinikubeRpArguments ++= Vector(
+  "--ingress-annotation", "ingress.kubernetes.io/rewrite-target=/",
+  "--ingress-annotation", "nginx.ingress.kubernetes.io/rewrite-target=/"
+)
+
+deployMinikubeAkkaClusterBootstrapContactPoints := 3
