@@ -141,7 +141,7 @@ kubectl delete jobs/akka-cluster-tooling-example-v0-1-0
 If you wish to remove the resources, you can use `kubectl delete` as follows:
 
 ```bash
-rp generate-kubernetes-resources akka-cluster-tooling-example/akka-cluster-tooling-example:0.1.0 \
-  --pod-controller-replicas 3 | kubectl delete -f -
+rp generate-kubernetes-resources akka-cluster-tooling-example:0.1.0 \
+  --generate-all --pod-controller-replicas 3 | kubectl delete -f -
 ```
 
