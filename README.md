@@ -1,4 +1,4 @@
-# Akka Cluster Tooling Example
+# Akka Cluster Orchestration Example
 
 This project is an example for [Lightbend Orchestration for Kubernetes](https://developer.lightbend.com/docs/lightbend-orchestration-kubernetes/latest/).
 
@@ -60,7 +60,7 @@ docker images
 #### Deploy project
 
 ```bash
-rp generate-kubernetes-resources akka-cluster-tooling-example:0.1.0 \
+rp generate-kubernetes-resources akka-cluster-orchestration-example:0.1.0 \
   --generate-all \
   --ingress-annotation ingress.kubernetes.io/rewrite-target=/ \
   --ingress-annotation nginx.ingress.kubernetes.io/rewrite-target=/ \
@@ -77,26 +77,26 @@ kubectl get all
 ```
 
 ```
-NAME                                         DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
-deploy/akka-cluster-tooling-example-v0-1-0   3         3         3            3           1m
+NAME                                               DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
+deploy/akka-cluster-orchestration-example-v0-1-0   3         3         3            3           1m
 
-NAME                                                DESIRED   CURRENT   READY     AGE
-rs/akka-cluster-tooling-example-v0-1-0-6d8b954c45   3         3         3         1m
+NAME                                                      DESIRED   CURRENT   READY     AGE
+rs/akka-cluster-orchestration-example-v0-1-0-6d8b954c45   3         3         3         1m
 
-NAME                                         DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
-deploy/akka-cluster-tooling-example-v0-1-0   3         3         3            3           1m
+NAME                                               DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
+deploy/akka-cluster-orchestration-example-v0-1-0   3         3         3            3           1m
 
-NAME                                                DESIRED   CURRENT   READY     AGE
-rs/akka-cluster-tooling-example-v0-1-0-6d8b954c45   3         3         3         1m
+NAME                                                      DESIRED   CURRENT   READY     AGE
+rs/akka-cluster-orchestration-example-v0-1-0-6d8b954c45   3         3         3         1m
 
 NAME                                                      READY     STATUS    RESTARTS   AGE
-po/akka-cluster-tooling-example-v0-1-0-6d8b954c45-2jzbb   1/1       Running   0          1m
-po/akka-cluster-tooling-example-v0-1-0-6d8b954c45-vfkg6   1/1       Running   0          1m
-po/akka-cluster-tooling-example-v0-1-0-6d8b954c45-zq8wj   1/1       Running   0          1m
+po/akka-cluster-orchestration-example-v0-1-0-6d8b954c45-2jzbb   1/1       Running   0          1m
+po/akka-cluster-orchestration-example-v0-1-0-6d8b954c45-vfkg6   1/1       Running   0          1m
+po/akka-cluster-orchestration-example-v0-1-0-6d8b954c45-zq8wj   1/1       Running   0          1m
 
-NAME                               TYPE        CLUSTER-IP   EXTERNAL-IP   PORT(S)                         AGE
-svc/akka-cluster-tooling-example   ClusterIP   None         <none>        10000/TCP,10001/TCP,10002/TCP   1m
-svc/kubernetes                     ClusterIP   10.96.0.1    <none>        443/TCP                         3m
+NAME                                     TYPE        CLUSTER-IP   EXTERNAL-IP   PORT(S)                         AGE
+svc/akka-cluster-orchestration-example   ClusterIP   None         <none>        10000/TCP,10001/TCP,10002/TCP   1m
+svc/kubernetes                           ClusterIP   10.96.0.1    <none>        443/TCP                         3m
 ```
 
 ```bash
@@ -117,7 +117,7 @@ akka.tcp://my-system@172.17.0.6:10000
 This application has a job in it that joins the existing cluster, prints a message, and then exits.
 
 ```bash
-rp generate-kubernetes-resources akka-cluster-tooling-example:0.1.0 \
+rp generate-kubernetes-resources akka-cluster-orchestration-example:0.1.0 \
   --application my-job \
   --akka-cluster-join-existing \
   --generate-pod-controllers \
@@ -127,13 +127,13 @@ rp generate-kubernetes-resources akka-cluster-tooling-example:0.1.0 \
 You can then inspect the jobs output using:
 
 ```bash
-kubectl logs jobs/akka-cluster-tooling-example-v0-1-0
+kubectl logs jobs/akka-cluster-orchestration-example-v0-1-0
 ```
 
 And lastly, remove the job, thus deleting logs:
 
 ```bash
-kubectl delete jobs/akka-cluster-tooling-example-v0-1-0
+kubectl delete jobs/akka-cluster-orchestration-example-v0-1-0
 ```
 
 5) Remove project (Optional)
@@ -141,7 +141,7 @@ kubectl delete jobs/akka-cluster-tooling-example-v0-1-0
 If you wish to remove the resources, you can use `kubectl delete` as follows:
 
 ```bash
-rp generate-kubernetes-resources akka-cluster-tooling-example:0.1.0 \
+rp generate-kubernetes-resources akka-cluster-orchestration-example:0.1.0 \
   --generate-all --pod-controller-replicas 3 | kubectl delete -f -
 ```
 
