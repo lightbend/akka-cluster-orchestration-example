@@ -1,4 +1,4 @@
-name := "akka-cluster-tooling-example"
+name := "akka-cluster-orchestration-example"
 
 version := "0.1.0"
 
