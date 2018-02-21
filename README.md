@@ -1,17 +1,17 @@
 # Akka Cluster Tooling Example
 
-This project is an example for [Lightbend Reactive Platform Tooling](https://developer.lightbend.com/docs/reactive-platform-tooling/latest/).
+This project is an example for [Lightbend Orchestration for Kubernetes](https://developer.lightbend.com/docs/lightbend-orchestration-kubernetes/latest/).
 
 This is a very simple [Akka Cluster](https://doc.akka.io/docs/akka/snapshot/cluster-usage.html) and 
 [Akka HTTP](https://doc.akka.io/docs/akka-http/current/scala/http/) application. Its main purpose is to show how you 
-can build a similar application and take advantage of the [Platform Tooling](https://s3-us-west-2.amazonaws.com/rp-tooling-temp-docs/home.html)
+can build a similar application and take advantage of the [Lightbend Orchestration for Kubernetes](https://developer.lightbend.com/docs/lightbend-orchestration-kubernetes/latest/)
 to easily and safely deploy to [Kubernetes](https://kubernetes.io/) with minimal configuration required.
 
 ### Deployment
 
 Prerequisites:
 
-* [reactive-cli](https://developer.lightbend.com/docs/reactive-platform-tooling/latest/cli-installation.html)
+* [reactive-cli](https://developer.lightbend.com/docs/lightbend-orchestration-kubernetes/latest/cli-installation.html#install-the-cli)
 * [Minikube](https://github.com/kubernetes/minikube#installation)
 
 > **You'll need version 0.8.0 (or later) of the CLI.**
