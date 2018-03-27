@@ -14,7 +14,7 @@ Prerequisites:
 * [reactive-cli](https://developer.lightbend.com/docs/lightbend-orchestration-kubernetes/latest/cli-installation.html#install-the-cli)
 * [Minikube](https://github.com/kubernetes/minikube#installation)
 
-> **You'll need version 0.8.0 (or later) of the CLI.**
+> **You'll need version 0.9.0 (or later) of the CLI.**
 
 > If you already have a Minikube and wish to start fresh, run `minikube delete` to remove your existing Minikube.
 
