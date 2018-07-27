@@ -6,7 +6,6 @@ import akka.http.scaladsl.server.Directives._
 import akka.pattern.ask
 import akka.stream.ActorMaterializer
 import akka.util.Timeout
-import com.lightbend.rp.common.SocketBinding
 import scala.concurrent.duration._
 
 import SimpleClusterListener._
@@ -37,8 +36,8 @@ object App {
     // Use `SocketBinding` to inspect environment for correct host/port to bind on
     // or fall back to a default provided value
 
-    val host = SocketBinding.bindHost("http", default = "localhost")
-    val port = SocketBinding.bindPort("http", default = 8080)
+    val host = "0.0.0.0"
+    val port = 8080
 
     println(s"HTTP server available at http://$host:$port")
 
