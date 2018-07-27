@@ -9,3 +9,15 @@ libraryDependencies ++= Vector(
   "com.typesafe.akka" %% "akka-stream"  % "2.5.14")
 
 mainClass in Compile := Some("com.lightbend.example.com.lightbend.rp.example.akkacluster.App")
+
+enablePlugins(SbtReactiveAppPlugin)
+
+enableAkkaClusterBootstrap := true
+
+endpoints += TcpEndpoint("cinnamon", 9001, None)
+endpoints += HttpEndpoint("http", 8080, Vector.empty)
+
+annotations := Map(
+  // enable scraping
+  "prometheus.io/scrape" -> "true"
+)
