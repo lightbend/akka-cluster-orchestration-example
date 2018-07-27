@@ -8,6 +8,3 @@ libraryDependencies ++= Vector(
   "com.typesafe.akka" %% "akka-http"    % "10.0.11",
   "com.typesafe.akka" %% "akka-stream"  % "2.5.7")
 mainClass in Compile := Some("com.lightbend.example.com.lightbend.rp.example.akkacluster.App")
-
-applications += "my-job" -> Vector("bin/job")
-
