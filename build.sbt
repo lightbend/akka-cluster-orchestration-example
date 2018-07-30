@@ -15,7 +15,7 @@ enablePlugins(SbtReactiveAppPlugin)
 enableAkkaClusterBootstrap := true
 
 endpoints += TcpEndpoint("cinnamon", 9001, None)
-endpoints += HttpEndpoint("http", 8080, Vector.empty)
+endpoints += HttpEndpoint("http", 8080, HttpIngress(Seq(80), Seq("tutorial.io"), Seq("/")))
 
 annotations := Map(
   // enable scraping
