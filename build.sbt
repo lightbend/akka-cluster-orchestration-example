@@ -14,6 +14,8 @@ libraryDependencies ++= Vector(
 libraryDependencies ++= Vector(
   Cinnamon.library.cinnamonCHMetrics,
   Cinnamon.library.cinnamonAkka,
+  Cinnamon.library.cinnamonAkkaHttp,
+  Cinnamon.library.cinnamonJvmMetricsProducer,
   Cinnamon.library.cinnamonPrometheus,
   Cinnamon.library.cinnamonPrometheusHttpServer
 )
