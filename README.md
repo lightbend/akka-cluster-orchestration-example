@@ -150,4 +150,3 @@ If you wish to remove the resources, you can use `kubectl delete` as follows:
 rp generate-kubernetes-resources akka-cluster-orchestration-example:0.1.0 \
   --generate-all --pod-controller-replicas 3 | kubectl delete -f -
 ```
-
